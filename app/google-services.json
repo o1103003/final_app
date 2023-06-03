@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "566910199014",
+    "project_id": "subscribe-3b3e3",
+    "storage_bucket": "subscribe-3b3e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566910199014:android:5b02260d79fbcedd5a4727",
+        "android_client_info": {
+          "package_name": "tw.edu.pu.group.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566910199014-tis6fajfol4dfiktr4272r3ch65hrpnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQcYsnDf1oeiP26t9UM-VxJ7CnvAucKhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566910199014-tis6fajfol4dfiktr4272r3ch65hrpnq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
