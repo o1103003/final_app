@@ -70,11 +70,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.Util
@@ -103,6 +106,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     Greeting("Android")
+
                 }
             }
         }
@@ -315,26 +319,62 @@ fun SeventhScreen(navController: NavHostController) {
     }
 
 
+
+fun convertInput(fromUnit: Units, toUnit: Units, fromValue: Double): Double {
+    val IDR = when (fromUnit) {
+        Units.NTD -> fromValue*1.0
+        Units.IDR -> fromValue/500
+    }
+    return when (toUnit) {
+        Units.NTD -> IDR/0.973
+        Units.IDR -> IDR
+    }
+}
+
+
+
 @Composable
 fun SixthScreen(navController: NavHostController) {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
+    val context = LocalContext.current
+    var isSelectedFrom by remember {
+        mutableStateOf(Units.IDR)
+    }
+    var isSelectedTo by remember {
+        mutableStateOf(Units.NTD)
+    }
+    var userInput by remember { mutableStateOf("0.0") }
+    var currentResult by remember { mutableStateOf(0.0) }
     Column() {
         TextField(
-            value = text,
+            value = userInput,
             label = { Text(text = "IDR") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = { it ->
-                text = it
+            onValueChange = {
+                if (it.isNotEmpty()) {
+                    userInput = it
+                    currentResult = convertInput(
+                        fromUnit = Units.IDR,
+                        toUnit = Units.NTD,
+                        fromValue = it.toDouble()
+                    )
+                }
             })
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = {}) {
-                Text(text = "=")
-            }
-            Button(onClick = {}) {
+        Text(
+            "NTD: ${currentResult.toString()}",
+            modifier = Modifier.padding(top = 25.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+            Button(onClick = {userInput="0"}) {
                 Text(text = "0")
             }
         }
     }
+
+
+enum class Units {
+    IDR,
+    NTD
 }
 @Composable
 fun FifthScreen(navController: NavHostController) {
