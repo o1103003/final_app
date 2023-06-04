@@ -37,6 +37,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
@@ -56,8 +57,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -66,6 +70,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -311,36 +317,44 @@ fun SeventhScreen(navController: NavHostController) {
 
 @Composable
 fun SixthScreen(navController: NavHostController) {
-    Column(modifier = Modifier
-
-        .fillMaxSize(),
-
-        verticalArrangement = Arrangement.Top,
-
-        horizontalAlignment = Alignment.CenterHorizontally){
-
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+    Column() {
+        TextField(
+            value = text,
+            label = { Text(text = "IDR") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            onValueChange = { it ->
+                text = it
+            })
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = {}) {
+                Text(text = "=")
+            }
+            Button(onClick = {}) {
+                Text(text = "0")
+            }
+        }
     }
 }
-
 @Composable
 fun FifthScreen(navController: NavHostController) {
     var Places = arrayListOf(
-        R.drawable.tangkuban,
+        R.drawable.borobudur,
 
-        R.drawable.tebingkeraton, R.drawable.kawahputih,
+        R.drawable.prambanan, R.drawable.merapi,
 
-        R.drawable.trans, R.drawable.dusunbambu,
+        R.drawable.kalibiru, R.drawable.tamansari,
 
-        R.drawable.curugpelangi
+        R.drawable.malioboro
     )
 
-    var PlacesName = arrayListOf(
-        "Gunung Tangkuban Perahu",
-        "Tebing Keraton",
-        "Kawah Putih",
-        "Trans Studio Bandung",
-        "Dusun Bambu",
-        "Curug Pelangi",
+   var PlacesName = arrayListOf(
+        "Candi Borobudur",
+        "Candi Prambanan",
+        "Gunung Merapi",
+        "Kalibiru National Park",
+        "Taman Sari",
+        "Malioboro Street",
     )
     Column(modifier = Modifier.fillMaxHeight()) {
         Text(text = "Where To Go")
@@ -367,7 +381,6 @@ fun FifthScreen(navController: NavHostController) {
             }
         }}
 }
-
 @Composable
 fun FourthScreen(navController: NavHostController) {
     var Places = arrayListOf(
