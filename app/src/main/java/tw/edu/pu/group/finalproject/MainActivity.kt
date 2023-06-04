@@ -2,10 +2,13 @@
 
 package tw.edu.pu.group.finalproject
 
+import android.content.ClipData
 import android.media.MediaPlayer
 import android.media.browse.MediaBrowser
 import android.net.Uri
 import android.os.Bundle
+import android.provider.SyncStateContract.Columns
+import android.text.Layout
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -20,6 +23,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +33,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -36,6 +43,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -73,8 +81,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.actions.ItemListIntents
+import com.google.common.collect.Table.Cell
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import tw.edu.pu.group.finalproject.ui.theme.FinalTheme
 import kotlin.concurrent.fixedRateTimer
 
@@ -234,17 +245,40 @@ fun VideoPlayer(modifier: Modifier = Modifier) {
 }
 @Composable
 fun EighthScreen(navController: NavHostController) {
-    Column(modifier = Modifier
+    var Phrases = arrayListOf(
+        "多少钱? — Berapa harganya?",
+        "厕所在哪里? — Di mana kamar mandinya?",
+        "谢谢 — Terima kasih",
+        "不客气 — Sama-sama",
+        "我听不懂 — Saya tidak mengerti",
 
-        .fillMaxSize(),
+        "早上好 — Selamat pagi",
+        "午安 — Selamat siang",
+        "晚安 — Selamat malam",
+        "………在哪? — ………di mana?",
+        "能幫我拍張照片嗎? — Apakah bisa bantu saya mengambil foto?"
+    )
+    Column(
+        modifier = Modifier
+
+            .fillMaxSize(),
 
         verticalArrangement = Arrangement.Top,
 
-        horizontalAlignment = Alignment.CenterHorizontally){
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(text = "Phrases")
 
+        LazyColumn {
+
+            items(10) { index ->
+
+                Text(text = Phrases[index % 10])
+
+            }
+        }
     }
 }
-
 @Composable
 fun SeventhScreen(navController: NavHostController) {
     Column(modifier = Modifier
@@ -290,318 +324,470 @@ fun SixthScreen(navController: NavHostController) {
 
 @Composable
 fun FifthScreen(navController: NavHostController) {
-    Column(modifier = Modifier
+    var Places = arrayListOf(
+        R.drawable.tangkuban,
 
-        .fillMaxSize(),
+        R.drawable.tebingkeraton, R.drawable.kawahputih,
 
-        verticalArrangement = Arrangement.Top,
+        R.drawable.trans, R.drawable.dusunbambu,
 
-        horizontalAlignment = Alignment.CenterHorizontally){
+        R.drawable.curugpelangi
+    )
 
-    }
+    var PlacesName = arrayListOf(
+        "Gunung Tangkuban Perahu",
+        "Tebing Keraton",
+        "Kawah Putih",
+        "Trans Studio Bandung",
+        "Dusun Bambu",
+        "Curug Pelangi",
+    )
+    Column(modifier = Modifier.fillMaxHeight()) {
+        Text(text = "Where To Go")
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(6) { index ->
+
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Places[index % 6]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = PlacesName[index % 6])
+                }
+            }
+        }}
 }
 
 @Composable
 fun FourthScreen(navController: NavHostController) {
-    Column(modifier = Modifier
+    var Places = arrayListOf(
+        R.drawable.tangkuban,
 
-        .fillMaxSize(),
+        R.drawable.tebingkeraton, R.drawable.kawahputih,
 
-        verticalArrangement = Arrangement.Top,
+        R.drawable.trans, R.drawable.dusunbambu,
 
-        horizontalAlignment = Alignment.CenterHorizontally){
+        R.drawable.curugpelangi
+    )
 
-    }
+    var PlacesName = arrayListOf(
+        "Gunung Tangkuban Perahu",
+        "Tebing Keraton",
+        "Kawah Putih",
+        "Trans Studio Bandung",
+        "Dusun Bambu",
+        "Curug Pelangi",
+    )
+    Column(modifier = Modifier.fillMaxHeight()) {
+        Text(text = "Where To Go")
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(6) { index ->
+
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Places[index % 6]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = PlacesName[index % 6])
+                }
+            }
+        }}
 }
 
 @Composable
 fun ThirdScreen(navController: NavHostController) {
-    Column(modifier = Modifier
+    var Places = arrayListOf(
+        R.drawable.tanahlot,
 
-        .fillMaxSize(),
+        R.drawable.tulamben, R.drawable.tegalalang,
 
-        verticalArrangement = Arrangement.Top,
+        R.drawable.monkeyforest, R.drawable.batur,
 
-        horizontalAlignment = Alignment.CenterHorizontally){
+        R.drawable.nusapenida
+    )
 
-    }
+    var PlacesName = arrayListOf(
+        "Tanah Lot Temple",
+        "Tulamben",
+        "Tegalalang Rice Terraces",
+        "Monkey Forest",
+        "Mount Batur",
+        "Nusa Penida",
+    )
+    Column(modifier = Modifier.fillMaxHeight()) {
+        Text(text = "Where To Go")
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(6) { index ->
+
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Places[index % 6]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = PlacesName[index % 6])
+                }
+            }
+    }}
 }
 
 @Composable
 fun SecondScreen(navController: NavHostController) {
-    Column(
-        modifier = Modifier
+    var Places = arrayListOf(
+        R.drawable.jkt1,
 
-            .fillMaxSize(),
+        R.drawable.jkt2, R.drawable.jkt3,
 
-        verticalArrangement = Arrangement.Top,
+        R.drawable.jkt4, R.drawable.jkt5,
 
-        horizontalAlignment = Alignment.Start
-    ) {
-        var Places = arrayListOf(
-            R.drawable.jkt1,
+        R.drawable.jkt6, R.drawable.jkt7,
 
-            R.drawable.jkt2, R.drawable.jkt3,
+        R.drawable.jkt8, R.drawable.jkt9, R.drawable.jkt10
+    )
 
-            R.drawable.jkt4, R.drawable.jkt5,
+    var PlacesName = arrayListOf(
+        "The National Monument – Iconic Landmark",
+        "Istiqlal Mosque – A Marble Marvel",
+        "Thousand Islands – Escape From Fast Running Life",
+        "Taman Mini Indonesia Park – Cultural Tour",
+        "Ancol Dreamland – Theme Park For All Ages",
 
-            R.drawable.jkt6, R.drawable.jkt7,
-
-            R.drawable.jkt8, R.drawable.jkt9, R.drawable.jkt10
-        )
-
-        var PlacesName = arrayListOf(
-            "The National Monument – Iconic Landmark",
-            "Istiqlal Mosque – A Marble Marvel",
-            "Thousand Islands – Escape From Fast Running Life",
-            "Taman Mini Indonesia Park – Cultural Tour",
-            "Ancol Dreamland – Theme Park For All Ages",
-
-            "Jakarta Cathedral – Roman Architectural Wonder",
-            "Glodok Chinatown – All About Historical Treasures",
-            "Pasar Seni Ancol – Cute Art Market ",
-            "Kota Tua – Dutch-Inspired Architecture ",
-            "SeaWorld Ancol – Home To Largest Aquarium"
-        )
+        "Jakarta Cathedral – Roman Architectural Wonder",
+        "Glodok Chinatown – All About Historical Treasures",
+        "Pasar Seni Ancol – Cute Art Market ",
+        "Kota Tua – Dutch-Inspired Architecture ",
+        "SeaWorld Ancol – Home To Largest Aquarium"
+    )
+    var Food = arrayListOf(
+        R.drawable.sotobetawi, R.drawable.keraktelor,
+        R.drawable.ketoprak, R.drawable.asinanbetawi
+    )
+    var Foodname = arrayListOf("Soto Betawi", "Kerak Telor", "Ketoprak", "Asinan Betawi")
+    Column(modifier = Modifier.fillMaxHeight()) {
         Text(text = "Where To Go")
-        LazyColumn (modifier = Modifier.padding(start=10.dp,end=10.dp,top=10.dp)){
-
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             items(10) { index ->
-                Text(text = PlacesName[index % 10])
-                Image(
 
-                    painter = painterResource(id = Places[index % 10]),
-
-                    contentDescription = "手掌圖片",
-                    modifier = Modifier.padding(bottom=20.dp)
-                )
-
-            }
-            }
-
-    }
-}
-
-@Composable
-
-fun FirstScreen(navController: NavController) {
-    val db = Firebase.firestore
-    var msg = remember { mutableStateOf("Please insert your email address.")}
-    val context = LocalContext.current
-    var mper = MediaPlayer()
-    LazyColumn(
-        modifier = Modifier
-
-            .fillMaxSize(),
-
-        verticalArrangement = Arrangement.Top,
-
-        horizontalAlignment = Alignment.CenterHorizontally
-
-    ) {
-        item{Row(modifier = Modifier.height(200.dp)){VideoPlayer(
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-                .background(Color.Black)
-        )}}
-    item{
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp)){
-
-        Box(contentAlignment = Alignment.Center,
-        modifier = Modifier.weight(1f)){
-            Image(painterResource(id = R.drawable.jakarta) , contentDescription ="null" ,
-                contentScale = ContentScale.Fit,modifier = Modifier
-                    .clip(RoundedCornerShape(6.dp))
-                    .size(150.dp))
-                Button(
-                    onClick = {navController.navigate("JumpSecond") },
-                    colors = ButtonDefaults.buttonColors(Color.Transparent)
-                ){
-                    Text("Jakarta")
-                }
-             }
-
-        Box(contentAlignment = Alignment.Center,modifier = Modifier.weight(1f)) {
-            Image(painterResource(id = R.drawable.bali) , contentDescription ="null" ,
-                contentScale = ContentScale.Fit,modifier = Modifier
-                    .clip(RoundedCornerShape(6.dp))
-                    .size(150.dp))
-            Button(
-                onClick = {navController.navigate("JumpThird")},
-                colors = ButtonDefaults.buttonColors(Color.Transparent)
-            ){
-                Text(text = "Bali")
-            }
-        }
-
-
-        }}
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 0.dp, bottom = 10.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.bandung),
-                        contentDescription = "null",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(6.dp))
-                            .size(150.dp)
-                    )
-                    Button(
-                        onClick = { navController.navigate("JumpFourth") },
-                        colors = ButtonDefaults.buttonColors(Color.Transparent)
-
-                    ) { Text(text = "Bandung") }
-                }
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.jogja),
-                        contentDescription = "null",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(6.dp))
-                            .size(150.dp)
-                    )
-                    Button(
-                        onClick = { navController.navigate("JumpFifth") },
-                        colors = ButtonDefaults.buttonColors(Color.Transparent)
-                    )
+                Card() {
+                    Column()
                     {
-                        Text(text = "Jogjakarta")
-                    }
+                        Image(
 
+                            painter = painterResource(id = Places[index % 10]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = PlacesName[index % 10])
+                }
+            }
+            item {
+              Row(modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.Center) {
+                Text(text = "What to Eat") }}
+            items(4){ index ->
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Food[index % 4]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = Foodname[index % 4])
                 }
             }
         }
-        item {
-            Row (modifier = Modifier.padding(2.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)){
-                Button(contentPadding = PaddingValues(10.dp),onClick = {
-
-                    navController.navigate("JumpSixth")
-
-                },
-                    shape = RoundedCornerShape(6.dp)) {
-
-                    Text(text = "Currency ")
-                    Image(
-
-                        painterResource(id = R.drawable.currency),
-
-                        contentDescription = "currency icon",
-
-                        modifier = Modifier.size(15.dp)
-                    )
-
-                }
-
-                Button(contentPadding = PaddingValues(10.dp),onClick = {
-
-                    navController.navigate("JumpSeventh")
-
-                },
-                    shape = RoundedCornerShape(6.dp)) {
-
-                    Text(text = "Weather ")
-                    Image(
-
-                        painterResource(id = R.drawable.weather),
-
-                        contentDescription = "weather icon",
-
-                        modifier = Modifier.size(20.dp)
-                    )
-
-                }
-
-                Button(contentPadding = PaddingValues(10.dp),onClick = {
-
-                    navController.navigate("JumpEighth")
-
-                },
-                    shape = RoundedCornerShape(6.dp)) {
-
-                    Text(text = "Sentences ")
-                    Image(
-
-                        painterResource(id = R.drawable.sentences),
-
-                        contentDescription = "sentences icon",
-
-                        modifier = Modifier.size(20.dp)
-                    )
-
-                }
-            }
-        }
-        item { Column (modifier = Modifier
-            .padding(top = 20.dp)
-            .background(Color.LightGray), horizontalAlignment = Alignment.CenterHorizontally){
-            Text(text = "Subscribe to receive more information about other magnificent places to visit in Indonesia!",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(20.dp))
-            TextField(
-                value = msg.value,
-                onValueChange = { newText ->
-                    msg.value = newText
-                },
-                label = { Text(text = "email") },
-
-                placeholder = { Text(text = "ex:example@gmail.com") },
-
-                )
-            Button(onClick = {
-
-                val user = hashMapOf(
-
-                    "email" to msg.value,
-
-                )
-                db.collection("users")
-
-                    .add(user)
-
-                    .addOnSuccessListener { documentReference ->
-
-                        Toast.makeText(
-                            context, "Thank you, you have successfully subscribed to our app.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                    .addOnFailureListener { e ->
-
-                        Toast.makeText(
-                            context, "Sorry, an error has occurred. Please try again next time.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-            }) {
-
-                Text(text = "Subscribe")
-
-            }
-        } }
     }
-}
+ }
+    @Composable
+
+    fun FirstScreen(navController: NavController) {
+        val db = Firebase.firestore
+        var msg = remember { mutableStateOf("Please insert your email address.") }
+        val context = LocalContext.current
+        var mper = MediaPlayer()
+        LazyColumn(
+            modifier = Modifier
+
+                .fillMaxSize(),
+
+            verticalArrangement = Arrangement.Top,
+
+            horizontalAlignment = Alignment.CenterHorizontally
+
+        ) {
+            item {
+                Row(modifier = Modifier.height(200.dp)) {
+                    VideoPlayer(
+                        modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(1f, fill = true)
+                            .background(Color.Black)
+                    )
+                }
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Image(
+                            painterResource(id = R.drawable.jakarta), contentDescription = "null",
+                            contentScale = ContentScale.Fit, modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .size(150.dp)
+                        )
+                        Button(
+                            onClick = { navController.navigate("JumpSecond") },
+                            colors = ButtonDefaults.buttonColors(Color.Transparent)
+                        ) {
+                            Text("Jakarta")
+                        }
+                    }
+
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(1f)) {
+                        Image(
+                            painterResource(id = R.drawable.bali), contentDescription = "null",
+                            contentScale = ContentScale.Fit, modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .size(150.dp)
+                        )
+                        Button(
+                            onClick = { navController.navigate("JumpThird") },
+                            colors = ButtonDefaults.buttonColors(Color.Transparent)
+                        ) {
+                            Text(text = "Bali")
+                        }
+                    }
+
+
+                }
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 0.dp, bottom = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Image(
+                            painterResource(id = R.drawable.bandung),
+                            contentDescription = "null",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .size(150.dp)
+                        )
+                        Button(
+                            onClick = { navController.navigate("JumpFourth") },
+                            colors = ButtonDefaults.buttonColors(Color.Transparent)
+
+                        ) { Text(text = "Bandung") }
+                    }
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Image(
+                            painterResource(id = R.drawable.jogja),
+                            contentDescription = "null",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .size(150.dp)
+                        )
+                        Button(
+                            onClick = { navController.navigate("JumpFifth") },
+                            colors = ButtonDefaults.buttonColors(Color.Transparent)
+                        )
+                        {
+                            Text(text = "Jogjakarta")
+                        }
+
+                    }
+                }
+            }
+            item {
+                Row(
+                    modifier = Modifier.padding(2.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Button(
+                        contentPadding = PaddingValues(10.dp), onClick = {
+
+                            navController.navigate("JumpSixth")
+
+                        },
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+
+                        Text(text = "Currency ")
+                        Image(
+
+                            painterResource(id = R.drawable.currency),
+
+                            contentDescription = "currency icon",
+
+                            modifier = Modifier.size(15.dp)
+                        )
+
+                    }
+
+                    Button(
+                        contentPadding = PaddingValues(10.dp), onClick = {
+
+                            navController.navigate("JumpSeventh")
+
+                        },
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+
+                        Text(text = "Weather ")
+                        Image(
+
+                            painterResource(id = R.drawable.weather),
+
+                            contentDescription = "weather icon",
+
+                            modifier = Modifier.size(20.dp)
+                        )
+
+                    }
+
+                    Button(
+                        contentPadding = PaddingValues(10.dp), onClick = {
+
+                            navController.navigate("JumpEighth")
+
+                        },
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+
+                        Text(text = "Sentences ")
+                        Image(
+
+                            painterResource(id = R.drawable.sentences),
+
+                            contentDescription = "sentences icon",
+
+                            modifier = Modifier.size(20.dp)
+                        )
+
+                    }
+                }
+            }
+            item {
+                Column(
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .background(Color.LightGray),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Subscribe to receive more information about other magnificent places to visit in Indonesia!",
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(20.dp)
+                    )
+                    TextField(
+                        value = msg.value,
+                        onValueChange = { newText ->
+                            msg.value = newText
+                        },
+                        label = { Text(text = "email") },
+
+                        placeholder = { Text(text = "ex:example@gmail.com") },
+
+                        )
+                    Button(onClick = {
+
+                        val user = hashMapOf(
+
+                            "email" to msg.value,
+
+                            )
+                        db.collection("users")
+
+                            .add(user)
+
+                            .addOnSuccessListener { documentReference ->
+
+                                Toast.makeText(
+                                    context,
+                                    "Thank you, you have successfully subscribed to our app.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
+
+                            .addOnFailureListener { e ->
+
+                                Toast.makeText(
+                                    context,
+                                    "Sorry, an error has occurred. Please try again next time.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
+
+                    }) {
+
+                        Text(text = "Subscribe")
+
+                    }
+                }
+            }
+        }
+    }
 
 
 @Preview(showBackground = true)
