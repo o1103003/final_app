@@ -396,6 +396,11 @@ fun FifthScreen(navController: NavHostController) {
         "Taman Sari",
         "Malioboro Street",
     )
+    var Food = arrayListOf(
+        R.drawable.gudeg, R.drawable.satekelatak,
+        R.drawable.ronde
+    )
+    var Foodname = arrayListOf("Nasi Gudeg", "Sate Kelatak", "Wedang Ronde")
     Column(modifier = Modifier.fillMaxHeight()) {
         Text(text = "Where To Go")
         LazyVerticalGrid(
@@ -419,7 +424,27 @@ fun FifthScreen(navController: NavHostController) {
                     Text(text = PlacesName[index % 6])
                 }
             }
-        }}
+            item {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center) {
+                    Text(text = "What to Eat") }}
+            items(3){ index ->
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Food[index % 3]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = Foodname[index % 3])
+                }
+            }
+        }
+    }
 }
 @Composable
 fun FourthScreen(navController: NavHostController) {
@@ -441,6 +466,11 @@ fun FourthScreen(navController: NavHostController) {
         "Dusun Bambu",
         "Curug Pelangi",
     )
+    var Food = arrayListOf(
+        R.drawable.baksocuanki, R.drawable.batagor,
+        R.drawable.seblak,R.drawable.lotek
+    )
+    var Foodname = arrayListOf("Bakso Cuanki", "Batagor", "Seblak", "Lotek")
     Column(modifier = Modifier.fillMaxHeight()) {
         Text(text = "Where To Go")
         LazyVerticalGrid(
@@ -464,7 +494,27 @@ fun FourthScreen(navController: NavHostController) {
                     Text(text = PlacesName[index % 6])
                 }
             }
-        }}
+            item {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center) {
+                    Text(text = "What to Eat") }}
+            items(4){ index ->
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Food[index % 4]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = Foodname[index % 4])
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -487,6 +537,12 @@ fun ThirdScreen(navController: NavHostController) {
         "Mount Batur",
         "Nusa Penida",
     )
+    var Food = arrayListOf(
+        R.drawable.babiguling, R.drawable.ayambetutu,
+        R.drawable.nasijinggo, R.drawable.satelilit
+    )
+    var Foodname = arrayListOf("Babi Guling", "Ayam Betutu", "Nasi Jinggo", "Sate Lilit")
+
     Column(modifier = Modifier.fillMaxHeight()) {
         Text(text = "Where To Go")
         LazyVerticalGrid(
@@ -510,7 +566,27 @@ fun ThirdScreen(navController: NavHostController) {
                     Text(text = PlacesName[index % 6])
                 }
             }
-    }}
+            item {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center) {
+                    Text(text = "What to Eat") }}
+            items(4){ index ->
+                Card() {
+                    Column()
+                    {
+                        Image(
+
+                            painter = painterResource(id = Food[index % 4]),
+
+                            contentDescription = "手掌圖片",
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        )
+                    }
+                    Text(text = Foodname[index % 4])
+                }
+            }
+        }
+    }
 }
 
 @Composable
