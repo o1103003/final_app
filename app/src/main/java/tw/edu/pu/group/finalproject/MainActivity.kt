@@ -228,7 +228,7 @@ fun Greeting(name: String) {
 fun VideoPlayer(modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
-    val link = "https://rr3---sn-o097znsd.googlevideo.com/videoplayback?expire=1685830639&ei=j2d7ZPPPNsbukgbXmJDwDg&ip=198.199.101.47&id=o-AIQ5rmabo-TFAIVAl6ANSbov3dC038vx6YjW35dnx77w&itag=18&source=youtube&requiressl=yes&mh=1n&mm=31,26&mn=sn-o097znsd,sn-a5mekn6d&ms=au,onr&mv=m&mvi=3&pl=24&initcwndbps=185000&spc=qEK7B_HusfEk0HB_nLSsacmhsGwPNSyqeVBvdB7Zig&vprv=1&svpuc=1&mime=video/mp4&ns=W_FVKYTzu5ZlYkTwpsQ13k0N&gir=yes&clen=247392943&ratebypass=yes&dur=3933.808&lmt=1685005162575480&mt=1685808760&fvip=4&fexp=24007246,51000023&c=WEB_EMBEDDED_PLAYER&txp=5319224&n=692hMskl0uZEbeD&sparams=expire,ei,ip,id,itag,source,requiressl,spc,vprv,svpuc,mime,ns,gir,clen,ratebypass,dur,lmt&sig=AOq0QJ8wRAIgagGXrQu7IGDk9nsF2WKuLy_d5dUwCc94IX7t19-TDK0CIFd3D6MFrwLndHGLeEen-ICe8TiQNf9-ZOrzLr4stxAu&lsparams=mh,mm,mn,ms,mv,mvi,pl,initcwndbps&lsig=AG3C_xAwRQIhAOWdL1nrJXNvgHKFQIaSyNMunIxhFKNl0vK0nppo3YmrAiB9Q8RwMwQvwH8pFFqZMBX3oLjWc9LAcMlAIqMqMZeOhg==&title=INDONESIAN%20PARADISE%20-%20SERENE%20SCENERY%20AND%20SOOTHING%20MEDITATION%20MUSIC"
+    val link = "https://rr3---sn-n4v7snll.googlevideo.com/videoplayback?expire=1686038251&ei=i5J-ZOqcEMGhsfIPqIoQ&ip=198.199.101.47&id=o-AAzdZNvwY3s4O4-F--JWqvCHfneWDU9A6F6yLiEMmxym&itag=22&source=youtube&requiressl=yes&mh=aw&mm=31,26&mn=sn-n4v7snll,sn-a5mekn6k&ms=au,onr&mv=m&mvi=3&pl=20&initcwndbps=228750&spc=qEK7B7GbEGOEyy7D5F2dv0p0yrhcImyspkchfyXjaw&vprv=1&svpuc=1&mime=video/mp4&ns=BseuPzdRiOkdkepSJcQkegEN&cnr=14&ratebypass=yes&dur=976.863&lmt=1658560008447290&mt=1686016370&fvip=1&fexp=24007246,24362686,51000022&beids=24350018&c=WEB_EMBEDDED_PLAYER&txp=4532434&n=2HKCT3Q2lBy86HB&sparams=expire,ei,ip,id,itag,source,requiressl,spc,vprv,svpuc,mime,ns,cnr,ratebypass,dur,lmt&sig=AOq0QJ8wRQIhAKUvbp8Vumg1ILif3bXLYDeL8ahqPWrX0-XfR1bLRtI1AiBiGFSPTWoxxzky3P4wMzrtSIzup86bevL52HkWJs3onw==&lsparams=mh,mm,mn,ms,mv,mvi,pl,initcwndbps&lsig=AG3C_xAwRQIgFc26NPq8WFObY54dViTUbGYQHYULW1DyW8oH0i-YSuMCIQD7x-JYx_qZ-NaFdmaJGiNAZwTOTjpMffr6Mq5W9Passg==&title=10%20Best%20Places%20to%20Visit%20in%20Indonesia%20-%20Travel%20Video"
 
     val exoPlayer = ExoPlayer.Builder(context).build()
 
@@ -299,7 +299,7 @@ fun SeventhScreen(navController: NavHostController) {
 
         horizontalAlignment = Alignment.CenterHorizontally){
         // Declare a string that contains a url
-        val mUrl = "https://www.accuweather.com/en/id/indonesia-weather"
+        val mUrl = "https://www.bmkg.go.id/cuaca/prakiraan-cuaca-indonesia.bmkg?lang=EN"
 
         // Adding a WebView inside AndroidView
         // with layout as full screen
